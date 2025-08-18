@@ -37,4 +37,4 @@ Instructions will be provided as the project develops.
 
 ## License 📃
 
-[MIT](License)
+[MIT](LICENSE)
