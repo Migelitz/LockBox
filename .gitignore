@@ -1,0 +1,8 @@
+# Ignores build configuration
+.vscode/
+
+# Ignores test files and .exe file type
+test*
+*.exe
+
+pseudocode*
