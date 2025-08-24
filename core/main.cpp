@@ -1,24 +1,39 @@
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <limits>
-#define MAX_CHOICE 2
 #define MIN_CHOICE 1
+#define MAX_CHOICE 2
 using namespace std;
 
 void save_credentials(void) {
     string account_name;
     string password;
+    filesystem::path filepath = "../credentials/credentials.txt";
 
     // Gather credentials
-    cout << "Account Name:" << endl;
+    cout << "Account Name: ";
     cin >> account_name;
-    cout << "Password:" << endl;
+    cout << "Password: ";
     cin >> password;
 
+    filesystem::create_directories(filepath.parent_path());
+
+    ofstream outFile(filepath); // Saving credentials to local and txt file temporarily
+    
     // Saving credentials
+    if (outFile.is_open()) {
+        outFile << "Account Name: " << account_name << "\n" << "Password: " << password;
+        outFile.close();
+        
+        cout << "Your credentials has been saved successfully!" << endl;
+    } else {
+        cout << "Fail to open file" << endl;
+    }
 
-
-    // Credential feedback
-    cout << "Your credentials has saved successfully" << endl;
+    /*
+        For now, it can only save 1 credential. It just overwrites the existing file
+    */
 
 }
 
@@ -39,11 +54,13 @@ int main(void) {
         cout << "Choose an action:" << endl;
         cout << "1 - Save Credentials" << endl;
         cout << "2 - Retrieve Credentials" << endl;
+        cout << "Action: ";
         cin >> user_input;
 
+        // Handle input error
         if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.clear(); // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore bad input until \n met
         }
 
     } while (user_input < MIN_CHOICE || user_input > MAX_CHOICE);
