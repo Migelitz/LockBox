@@ -1,3 +1,4 @@
+#include "cipher.hpp"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -39,11 +40,6 @@ void save_credentials(void) {
         cerr << "Fail to open file" << endl;
         cout << "=================================================" << endl;        
     }
-
-    /*
-        For now, it can only save 1 credential. It just overwrites the existing file
-    */
-
 }
 
 void retrieve_credentials(void) {
